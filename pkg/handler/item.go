@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/tumbleweedd/todo-app"
+	"github.com/tumbleweedd/todo-app/pkg/model"
 	"net/http"
 	"strconv"
 )
@@ -18,7 +18,7 @@ func (h *Handler) createItem(c *gin.Context) {
 		newErrorResponse(c, http.StatusBadRequest, "invalid id param")
 	}
 
-	var input todo.TodoItem
+	var input model.TodoItem
 	if err := c.BindJSON(&input); err != nil {
 		newErrorResponse(c, http.StatusBadRequest, err.Error())
 		return
@@ -92,7 +92,7 @@ func (h *Handler) updateItem(c *gin.Context) {
 		return
 	}
 
-	var input todo.UpdateItemInput
+	var input model.UpdateItemInput
 	if err := c.BindJSON(&input); err != nil {
 		newErrorResponse(c, http.StatusBadRequest, err.Error())
 		return

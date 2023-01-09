@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
-	"github.com/tumbleweedd/todo-app"
+	"github.com/tumbleweedd/todo-app/pkg/model"
 	"github.com/tumbleweedd/todo-app/pkg/repository"
 	"time"
 )
@@ -48,7 +48,7 @@ func NewAuthService(repo repository.Authorization) *AuthService {
 	return &AuthService{repo: repo}
 }
 
-func (s *AuthService) CreateUser(user todo.User) (int, error) {
+func (s *AuthService) CreateUser(user model.User) (int, error) {
 	user.Password = generatePassword(user.Password)
 	return s.repo.CreateUser(user)
 }

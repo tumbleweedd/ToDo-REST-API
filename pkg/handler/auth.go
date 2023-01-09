@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/tumbleweedd/todo-app"
+	"github.com/tumbleweedd/todo-app/pkg/model"
 	"net/http"
 )
 
@@ -19,7 +19,7 @@ import (
 // @Failure default {object} errorResponse
 // @Router /auth/sign-up [post]
 func (h *Handler) signUp(c *gin.Context) {
-	var input todo.User
+	var input model.User
 
 	if err := c.BindJSON(&input); err != nil {
 		newErrorResponse(c, http.StatusBadRequest, err.Error())

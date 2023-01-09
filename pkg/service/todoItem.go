@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/tumbleweedd/todo-app"
+	"github.com/tumbleweedd/todo-app/pkg/model"
 	"github.com/tumbleweedd/todo-app/pkg/repository"
 )
 
@@ -14,7 +14,7 @@ func NewTodoItemService(repo repository.TodoItem, listRepo repository.TodoList) 
 	return &TodoItemService{repo: repo, listRepo: listRepo}
 }
 
-func (s *TodoItemService) Create(userId, listId int, item todo.TodoItem) (int, error) {
+func (s *TodoItemService) Create(userId, listId int, item model.TodoItem) (int, error) {
 	_, err := s.listRepo.GetById(userId, listId)
 	if err != nil {
 		return 0, err
@@ -23,15 +23,15 @@ func (s *TodoItemService) Create(userId, listId int, item todo.TodoItem) (int, e
 	return s.repo.Create(listId, item)
 }
 
-func (s *TodoItemService) GetAll(userId, listId int) ([]todo.TodoItem, error) {
+func (s *TodoItemService) GetAll(userId, listId int) ([]model.TodoItem, error) {
 	return s.repo.GetAll(userId, listId)
 }
 
-func (s *TodoItemService) GetById(userId, itemId int) (todo.TodoItem, error) {
+func (s *TodoItemService) GetById(userId, itemId int) (model.TodoItem, error) {
 	return s.repo.GetById(userId, itemId)
 }
 
-func (s *TodoItemService) Update(userId, listId int, input todo.UpdateItemInput) error {
+func (s *TodoItemService) Update(userId, listId int, input model.UpdateItemInput) error {
 	return s.repo.Update(userId, listId, input)
 }
 

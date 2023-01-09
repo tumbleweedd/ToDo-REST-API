@@ -3,7 +3,7 @@ package repository
 import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
-	"github.com/tumbleweedd/todo-app"
+	"github.com/tumbleweedd/todo-app/pkg/model"
 )
 
 type AuthPostgres struct {
@@ -14,7 +14,7 @@ func NewAuthPostgres(db *sqlx.DB) *AuthPostgres {
 	return &AuthPostgres{db: db}
 }
 
-func (s *AuthPostgres) CreateUser(user todo.User) (int, error) {
+func (s *AuthPostgres) CreateUser(user model.User) (int, error) {
 	var id int
 	query := fmt.Sprintf("INSERT INTO %s (name, username, password) values ($1, $2, $3) RETURNING id", usersTable)
 	row := s.db.QueryRow(query, user.Name, user.Username, user.Password)
@@ -25,8 +25,8 @@ func (s *AuthPostgres) CreateUser(user todo.User) (int, error) {
 	return id, nil
 }
 
-func (s *AuthPostgres) GetUser(username, password string) (todo.User, error) {
-	var user todo.User
+func (s *AuthPostgres) GetUser(username, password string) (model.User, error) {
+	var user model.User
 
 	query := fmt.Sprintf(`SELECT id FROM %s WHERE username=$1 AND password=$2`, usersTable)
 	err := s.db.Get(&user, query, username, password)
